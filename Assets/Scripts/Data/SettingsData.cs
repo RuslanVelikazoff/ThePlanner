@@ -1,19 +1,17 @@
-using System;
 using UnityEngine;
 
 public class SettingsData : MonoBehaviour
 {
     public static SettingsData Instance { get; private set; }
-
-    private string _firstName;
-    private string _lastName;
-    private string _emailAddress;
-    private int _age;
-    private string _gender;
+    
+    private bool[] _calendarType;
     private bool _pushNotifications;
     private bool _sounds;
 
-    private const string SaveKey = "MainSave";
+    private const string SaveKey = "MainSaveSettings";
+
+    private int _monthCalendarIndex = 0;
+    private int _weekCalendarIndex = 1;
     
     private void Awake()
     {
@@ -46,14 +44,10 @@ public class SettingsData : MonoBehaviour
     private void Load()
     {
         var data = SaveManager.Load<GameData>(SaveKey);
-
-        _firstName = data.firstName;
-        _lastName = data.lastName;
-        _emailAddress = data.emailAddress;
-        _age = data.age;
-        _gender = data.gender;
+        
+        _calendarType = data.calendarType;
         _pushNotifications = data.pushNotifications;
-        _sounds = data.sounds;
+        _sounds = data.sounds = AudioManager.Instance.GetSound();
         
         Debug.Log("Settings Data Load");
     }
@@ -70,15 +64,72 @@ public class SettingsData : MonoBehaviour
     {
         var data = new GameData()
         {
-            firstName = _firstName,
-            lastName = _lastName,
-            emailAddress = _emailAddress,
-            age = _age,
-            gender = _gender,
+            calendarType = _calendarType,
             pushNotifications = _pushNotifications,
-            sounds = _sounds
+            sounds = _sounds = AudioManager.Instance.GetSound()
         };
 
         return data;
+    }
+
+    public bool GetPushNotification()
+    {
+        return _pushNotifications;
+    }
+
+    public void SetPushNotification()
+    {
+        _pushNotifications = !_pushNotifications;
+        Save();
+    }
+
+    public bool GetSound()
+    {
+        return _sounds;
+    }
+
+    public void SetSound()
+    {
+        _sounds = !_sounds;
+        Save();
+    }
+
+    public int GetCalendarTypeIndex()
+    {
+        for (int i = 0; i < _calendarType.Length; i++)
+        {
+            if (_calendarType[i])
+            {
+                return i;
+                break;
+            }
+        }
+
+        return 0;
+    }
+
+    public int GetMonthCalendarIndex()
+    {
+        return _monthCalendarIndex;
+    }
+
+    public int GetWeekCalendarIndex()
+    {
+        return _weekCalendarIndex;
+    }
+
+    public void SetCalendarTypeIndex(int currentIndex)
+    {
+        for (int i = 0; i < _calendarType.Length; i++)
+        {
+            if (i == currentIndex)
+            {
+                _calendarType[i] = true;
+            }
+            else
+            {
+                _calendarType[i] = false;
+            }
+        }
     }
 }
