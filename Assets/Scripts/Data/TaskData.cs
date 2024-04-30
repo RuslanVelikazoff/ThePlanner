@@ -116,6 +116,11 @@ public class TaskData : MonoBehaviour
         Save();
     }
 
+    public string GetNameOfTask(int index)
+    {
+        return _nameOfTask[index];
+    }
+
     public void SetDescriptionOfTheTask(string description)
     {
         _descriptionOfTheTask.Add(description);
@@ -147,10 +152,21 @@ public class TaskData : MonoBehaviour
         Save();
     }
 
+    public GameData.Priority GetPriority(int index)
+    {
+        return _priority[index];
+    }
+
     public void SetTaskCompleted(bool completed)
     {
         _taskCompleted.Add(completed);
         Save();
+    }
+
+    public void TaskCompleted(int index)
+    {
+        _taskCompleted[index] = true;
+        DeleteTask(index);
     }
 
     public bool GetTaskCompleted(int index)
@@ -173,5 +189,17 @@ public class TaskData : MonoBehaviour
         }
 
         return listIndex;
+    }
+
+    public void DeleteTask(int index)
+    {
+        _nameOfTask.RemoveAt(index);
+        _descriptionOfTheTask.RemoveAt(index);
+        _startDate.RemoveAt(index);
+        _startDateString.RemoveAt(index);
+        _endDate.RemoveAt(index);
+        _endDateString.RemoveAt(index);
+        _priority.RemoveAt(index);
+        _taskCompleted.RemoveAt(index);
     }
 }
