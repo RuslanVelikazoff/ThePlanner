@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,10 +12,11 @@ public class MainPanel : MonoBehaviour
 
     [SerializeField]
     private GameObject newTaskPanel;
-
-    private void Awake()
+    [SerializeField] 
+    private GameObject mainPanel;
+    
+    private void OnEnable()
     {
-        OpenMainPanel();
         ButtonClickAction();
     }
 
@@ -47,7 +50,7 @@ public class MainPanel : MonoBehaviour
 
     private void OpenMainPanel()
     {
-        this.gameObject.SetActive(true);
+        mainPanel.SetActive(true);
         backButton.gameObject.SetActive(false);
         newTaskPanel.SetActive(false);
     }

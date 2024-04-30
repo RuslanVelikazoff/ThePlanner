@@ -1,5 +1,4 @@
 using System;
-using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -51,6 +50,9 @@ public class NewTaskPanel : MonoBehaviour
     [SerializeField] 
     private Color inactiveColor;
 
+    [SerializeField] 
+    private GameObject mainPanel;
+
     private string nameOfTask;
     private string descriptionOfTheTask;
     
@@ -78,6 +80,7 @@ public class NewTaskPanel : MonoBehaviour
     {
         SetButtonsColor();
         ButtonClickAction();
+        this.gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -187,7 +190,10 @@ public class NewTaskPanel : MonoBehaviour
                     TaskData.Instance.SetStartDate(startDate);
                     TaskData.Instance.SetEndDate(endDate);
                     TaskData.Instance.SetPriority(priority);
-                    Debug.Log("Write in data");
+                    TaskData.Instance.SetTaskCompleted(false);
+
+                    mainPanel.SetActive(true);
+                    this.gameObject.SetActive(false);
                 }
             }
 
