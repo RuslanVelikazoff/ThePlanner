@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class EditingProfilePanel : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject viewingPanel;
+    
     [SerializeField] 
     private Button saveButton;
 
@@ -52,12 +55,23 @@ public class EditingProfilePanel : MonoBehaviour
             saveButton.onClick.RemoveAllListeners();
             saveButton.onClick.AddListener(() =>
             {
-                ProfileData.Instance.SetFirstName(inputFirstName.text);
-                ProfileData.Instance.SetLastName(inputLastName.text);
-                ProfileData.Instance.SetEmailAddress(inputEmailAddress.text);
-                if (inputAge.text != string.Empty)
+                if (inputFirstName.text != String.Empty
+                    && inputLastName.text != String.Empty
+                    && inputEmailAddress.text != String.Empty
+                    && inputAge.text != String.Empty
+                    && ProfileData.Instance.GetActiveGenderIndex() != null)
                 {
+                    ProfileData.Instance.SetFirstName(inputFirstName.text);
+                    ProfileData.Instance.SetLastName(inputLastName.text);
+                    ProfileData.Instance.SetEmailAddress(inputEmailAddress.text);
                     ProfileData.Instance.SetAge(int.Parse(inputAge.text));
+                    
+                    viewingPanel.SetActive(true);
+                    this.gameObject.SetActive(false);
+                }
+                else
+                {
+                    Debug.Log("Не все поля заполнены!");
                 }
             });
         }

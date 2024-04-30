@@ -1,6 +1,19 @@
+using System;
+using System.Collections.Generic;
+
+
+
 [System.Serializable]
 public class GameData 
 {
+    public enum Priority
+    {
+        Null,
+        High,
+        Mid,
+        Low
+    }
+
     //Profile
     public string firstName;
     public string lastName;
@@ -12,6 +25,13 @@ public class GameData
     public bool[] calendarType = new bool[2];
     public bool pushNotifications;
     public bool sounds;
+    
+    //Tasks
+    public List<string> nameOfTask = new List<string>();
+    public List<string> descriptionOfTheTask = new List<string>();
+    public List<DateTime> startDate = new List<DateTime>();
+    public List<DateTime> endDate = new List<DateTime>();
+    public List<Priority> priority = new List<Priority>();
 
     public GameData()
     {
