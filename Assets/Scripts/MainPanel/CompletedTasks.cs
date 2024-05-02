@@ -11,18 +11,18 @@ public class CompletedTasks : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI procentText;
 
-    private List<int> indexDailyTasks;
+    private List<int> indexTasks;
 
     private float allTasks;
     private float taskCompleted;
 
     private void OnEnable()
     {
-        indexDailyTasks = TaskData.Instance.GetDailyTasksList();
-        allTasks = indexDailyTasks.Count;
+        indexTasks = TaskData.Instance.GetAllTasksList();
+        allTasks = indexTasks.Count;
         taskCompleted = 0;
         
-        for (int i = 0; i < indexDailyTasks.Count; i++)
+        for (int i = 0; i < indexTasks.Count; i++)
         {
             if (TaskData.Instance.GetTaskCompleted(i))
             {
@@ -32,7 +32,7 @@ public class CompletedTasks : MonoBehaviour
 
         float procent = taskCompleted * 100 / allTasks;
 
-        if (indexDailyTasks.Count == 0)
+        if (indexTasks.Count == 0)
         {
             procent = 0;
             procentText.text = procent + "%";

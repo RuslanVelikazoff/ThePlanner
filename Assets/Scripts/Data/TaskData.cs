@@ -213,7 +213,6 @@ public class TaskData : MonoBehaviour
     public void TaskCompleted(int index)
     {
         _taskCompleted[index] = true;
-        DeleteTask(index);
     }
 
     public bool GetTaskCompleted(int index)
@@ -262,6 +261,35 @@ public class TaskData : MonoBehaviour
             if (_startDate[i].Year == DateTime.Now.Year
                 && _startDate[i].Month == DateTime.Now.Month
                 && _startDate[i].Day == DateTime.Now.Day)
+            {
+                listIndex.Add(i);
+            }
+        }
+
+        return listIndex;
+    }
+
+    public List<int> GetAllTasksList()
+    {
+        List<int> listIndex = new List<int>();
+
+        for (int i = 0; i < _taskCompleted.Count; i++)
+        {
+            listIndex.Add(i);
+        }
+
+        return listIndex;
+    }
+
+    public List<int> GetDateTaskList(DateTime date)
+    {
+        List<int> listIndex = new List<int>();
+
+        for (int i = 0; i < _startDate.Count; i++)
+        {
+            if (_startDate[i].Year == date.Year
+                && _startDate[i].Month == date.Month
+                && _startDate[i].Day == date.Day)
             {
                 listIndex.Add(i);
             }
