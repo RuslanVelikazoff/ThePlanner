@@ -44,6 +44,7 @@ public class GameData
     public List<Priority> priority = new List<Priority>();
     public List<Category> category = new List<Category>();
     public List<bool> taskCompleted = new List<bool>();
+    public List<bool> favourite = new List<bool>();
 
     public GameData()
     {

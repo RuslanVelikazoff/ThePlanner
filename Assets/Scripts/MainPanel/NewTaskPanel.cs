@@ -257,6 +257,7 @@ public class NewTaskPanel : MonoBehaviour
                     TaskData.Instance.SetPriority(priority);
                     TaskData.Instance.SetCategory(category);
                     TaskData.Instance.SetTaskCompleted(false);
+                    TaskData.Instance.SetFavourite(false);
 
                     ResetInput();
                     

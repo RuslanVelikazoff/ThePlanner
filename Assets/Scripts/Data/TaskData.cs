@@ -15,6 +15,7 @@ public class TaskData : MonoBehaviour
     private List<GameData.Priority> _priority;
     private List<GameData.Category> _category;
     private List<bool> _taskCompleted;
+    private List<bool> _favourite;
     
     private const string SaveKey = "MainSaveTasks";
 
@@ -64,6 +65,7 @@ public class TaskData : MonoBehaviour
         _priority = data.priority;
         _category = data.category;
         _taskCompleted = data.taskCompleted;
+        _favourite = data.favourite;
 
         Debug.Log("Tasks Data Load");
     }
@@ -88,7 +90,8 @@ public class TaskData : MonoBehaviour
             endDateString = _endDateString,
             priority = _priority,
             category = _category,
-            taskCompleted = _taskCompleted
+            taskCompleted = _taskCompleted,
+            favourite = _favourite
         };
 
         return data;
@@ -186,6 +189,21 @@ public class TaskData : MonoBehaviour
         return _category[index];
     }
 
+    public List<int> GetCategoryTasksList(GameData.Category category)
+    {
+        List<int> listIndex = new List<int>();
+        
+        for (int i = 0; i < _category.Count; i++)
+        {
+            if (_category[i] == category)
+            {
+                listIndex.Add(i);
+            }
+        }
+
+        return listIndex;
+    }
+    
     public void SetTaskCompleted(bool completed)
     {
         _taskCompleted.Add(completed);
@@ -201,6 +219,23 @@ public class TaskData : MonoBehaviour
     public bool GetTaskCompleted(int index)
     {
         return _taskCompleted[index];
+    }
+
+    public void SetFavourite(bool favourite)
+    {
+        _favourite.Add(favourite);
+        Save();
+    }
+
+    public void TaskFavourite(int index, bool favourite)
+    {
+        _favourite[index] = favourite;
+        Save();
+    }
+
+    public bool GetTaskFavourite(int index)
+    {
+        return _favourite[index];
     }
 
     public List<int> GetDailyTasksList()
@@ -231,5 +266,6 @@ public class TaskData : MonoBehaviour
         _priority.RemoveAt(index);
         _category.RemoveAt(index);
         _taskCompleted.RemoveAt(index);
+        _favourite.RemoveAt(index);
     }
 }
