@@ -237,6 +237,21 @@ public class TaskData : MonoBehaviour
     {
         return _favourite[index];
     }
+    
+    public List<int> GetFavoriteTasksList()
+    {
+        List<int> listIndex = new List<int>();
+        
+        for (int i = 0; i < _favourite.Count; i++)
+        {
+            if (_favourite[i] == true)
+            {
+                listIndex.Add(i);
+            }
+        }
+
+        return listIndex;
+    }
 
     public List<int> GetDailyTasksList()
     {
