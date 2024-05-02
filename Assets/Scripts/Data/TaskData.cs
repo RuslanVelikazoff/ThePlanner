@@ -13,6 +13,7 @@ public class TaskData : MonoBehaviour
     private List<DateTime> _endDate;
     private List<string> _endDateString;
     private List<GameData.Priority> _priority;
+    private List<GameData.Category> _category;
     private List<bool> _taskCompleted;
     
     private const string SaveKey = "MainSaveTasks";
@@ -61,6 +62,7 @@ public class TaskData : MonoBehaviour
         _endDate = data.endDate;
         _endDateString = data.endDateString;
         _priority = data.priority;
+        _category = data.category;
         _taskCompleted = data.taskCompleted;
 
         Debug.Log("Tasks Data Load");
@@ -85,6 +87,7 @@ public class TaskData : MonoBehaviour
             endDate = _endDate,
             endDateString = _endDateString,
             priority = _priority,
+            category = _category,
             taskCompleted = _taskCompleted
         };
 
@@ -101,7 +104,7 @@ public class TaskData : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < _endDate.Count; i++)
+        for (int i = 0; i < _endDateString.Count; i++)
         {
             if (DateTime.TryParse(_endDateString[i], out DateTime result))
             {
@@ -156,6 +159,32 @@ public class TaskData : MonoBehaviour
     {
         return _priority[index];
     }
+    
+    public List<int> GetPriorityTasksList(GameData.Priority priority)
+    {
+        List<int> listIndex = new List<int>();
+        
+        for (int i = 0; i < _priority.Count; i++)
+        {
+            if (_priority[i] == priority)
+            {
+                listIndex.Add(i);
+            }
+        }
+
+        return listIndex;
+    }
+
+    public void SetCategory(GameData.Category category)
+    {
+        _category.Add(category);
+        Save();
+    }
+
+    public GameData.Category GetCategory(int index)
+    {
+        return _category[index];
+    }
 
     public void SetTaskCompleted(bool completed)
     {
@@ -200,6 +229,7 @@ public class TaskData : MonoBehaviour
         _endDate.RemoveAt(index);
         _endDateString.RemoveAt(index);
         _priority.RemoveAt(index);
+        _category.RemoveAt(index);
         _taskCompleted.RemoveAt(index);
     }
 }

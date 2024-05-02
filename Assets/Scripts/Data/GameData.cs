@@ -14,6 +14,14 @@ public class GameData
         Low
     }
 
+    public enum Category
+    {
+        Null,
+        Sport,
+        Work,
+        Study
+    }
+
     //Profile
     public string firstName;
     public string lastName;
@@ -34,6 +42,7 @@ public class GameData
     public List<DateTime> endDate;
     public List<string> endDateString = new List<string>();
     public List<Priority> priority = new List<Priority>();
+    public List<Category> category = new List<Category>();
     public List<bool> taskCompleted = new List<bool>();
 
     public GameData()

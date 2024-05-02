@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,12 +6,16 @@ public class MainPanel : MonoBehaviour
     [SerializeField]
     private Button newTaskButton;
     [SerializeField] 
+    private Button allTasksButton;
+    [SerializeField] 
     private Button backButton;
 
     [SerializeField]
     private GameObject newTaskPanel;
     [SerializeField] 
     private GameObject mainPanel;
+    [SerializeField]
+    private GameObject allTasksPanel;
     
     private void OnEnable()
     {
@@ -39,6 +41,15 @@ public class MainPanel : MonoBehaviour
                 OpenMainPanel();
             });
         }
+
+        if (allTasksButton != null)
+        {
+            allTasksButton.onClick.RemoveAllListeners();
+            allTasksButton.onClick.AddListener(() =>
+            {
+                OpenAllTasksPanel();
+            });
+        }
     }
 
     private void OpenNewTaskPanel()
@@ -53,5 +64,12 @@ public class MainPanel : MonoBehaviour
         mainPanel.SetActive(true);
         backButton.gameObject.SetActive(false);
         newTaskPanel.SetActive(false);
+    }
+
+    private void OpenAllTasksPanel()
+    {
+        allTasksPanel.SetActive(true);
+        backButton.gameObject.SetActive(true);
+        this.gameObject.SetActive(false);
     }
 }

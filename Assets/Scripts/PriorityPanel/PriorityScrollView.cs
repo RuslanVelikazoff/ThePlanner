@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TodayTaskInMainPanel : MonoBehaviour
+public class PriorityScrollView : MonoBehaviour
 {
     [SerializeField] 
     private GameObject taskPrefab;
@@ -12,16 +13,10 @@ public class TodayTaskInMainPanel : MonoBehaviour
     private List<GameObject> tasks = new List<GameObject>();
     private List<int> taskIndex;
 
-    private void OnEnable()
+    public void SpawnPrefabs(GameData.Priority priority)
     {
-        taskIndex = TaskData.Instance.GetDailyTasksList();
+        taskIndex = TaskData.Instance.GetPriorityTasksList(priority);
 
-        ResetTasks();
-        SpawnPrefabs();
-    }
-
-    private void SpawnPrefabs()
-    {
         for (int i = 0; i < taskIndex.Count; i++)
         {
             var task = Instantiate(taskPrefab, transform.position, Quaternion.identity);
@@ -33,8 +28,9 @@ public class TodayTaskInMainPanel : MonoBehaviour
         }
     }
 
-    private void ResetTasks()
+    public void ResetTasks()
     {
+        Debug.Log(tasks.Count);
         if (tasks.Count != 0)
         {
             for (int i = 0; i < tasks.Count; i++)

@@ -45,6 +45,13 @@ public class NewTaskPanel : MonoBehaviour
     [SerializeField] 
     private Button lowPriorityButton;
 
+    [SerializeField] 
+    private Button sportCategoryButton;
+    [SerializeField] 
+    private Button workCategoryButton;
+    [SerializeField] 
+    private Button studyCategoryButton;
+
     [SerializeField]
     private Color activeColor;
     [SerializeField] 
@@ -75,17 +82,18 @@ public class NewTaskPanel : MonoBehaviour
     private DateTime endDate;
 
     private GameData.Priority priority;
+    private GameData.Category category;
 
     private void Awake()
     {
-        SetButtonsColor();
+        SetPriorityButtonsColor();
+        SetCategoryButtonsColor();
         ButtonClickAction();
-        this.gameObject.SetActive(false);
     }
 
     private void OnEnable()
     {
-        SetButtonsColor();
+        SetPriorityButtonsColor();
     }
 
     private void ButtonClickAction()
@@ -105,7 +113,7 @@ public class NewTaskPanel : MonoBehaviour
             highPriorityButton.onClick.AddListener(() =>
             {
                 priority = GameData.Priority.High;
-                SetButtonsColor();
+                SetPriorityButtonsColor();
             });
         }
 
@@ -115,7 +123,7 @@ public class NewTaskPanel : MonoBehaviour
             midPriorityButton.onClick.AddListener(() =>
             {
                 priority = GameData.Priority.Mid;
-                SetButtonsColor();
+                SetPriorityButtonsColor();
             });
         }
 
@@ -125,12 +133,42 @@ public class NewTaskPanel : MonoBehaviour
             lowPriorityButton.onClick.AddListener(() =>
             {
                 priority = GameData.Priority.Low;
-                SetButtonsColor();
+                SetPriorityButtonsColor();
+            });
+        }
+
+        if (sportCategoryButton != null)
+        {
+            sportCategoryButton.onClick.RemoveAllListeners();
+            sportCategoryButton.onClick.AddListener(() =>
+            {
+                category = GameData.Category.Sport;
+                SetCategoryButtonsColor();
+            });
+        }
+
+        if (workCategoryButton != null)
+        {
+            workCategoryButton.onClick.RemoveAllListeners();
+            workCategoryButton.onClick.AddListener(() =>
+            {
+                category = GameData.Category.Work;
+                SetCategoryButtonsColor();
+            });
+        }
+
+        if (studyCategoryButton != null)
+        {
+            studyCategoryButton.onClick.RemoveAllListeners();
+            studyCategoryButton.onClick.AddListener(() =>
+            {
+                category = GameData.Category.Study;
+                SetCategoryButtonsColor();
             });
         }
     }
 
-    private void SetButtonsColor()
+    private void SetPriorityButtonsColor()
     {
         switch (priority)
         {
@@ -157,9 +195,36 @@ public class NewTaskPanel : MonoBehaviour
         }
     }
 
+    private void SetCategoryButtonsColor()
+    {
+        switch (category)
+        {
+            case GameData.Category.Null:
+                sportCategoryButton.GetComponent<Image>().color = inactiveColor;
+                workCategoryButton.GetComponent<Image>().color = inactiveColor;
+                studyCategoryButton.GetComponent<Image>().color = inactiveColor;
+                break;
+            case GameData.Category.Sport:
+                sportCategoryButton.GetComponent<Image>().color = activeColor;
+                workCategoryButton.GetComponent<Image>().color = inactiveColor;
+                studyCategoryButton.GetComponent<Image>().color = inactiveColor;
+                break;
+            case GameData.Category.Work:
+                sportCategoryButton.GetComponent<Image>().color = inactiveColor;
+                workCategoryButton.GetComponent<Image>().color = activeColor;
+                studyCategoryButton.GetComponent<Image>().color = inactiveColor;
+                break;
+            case GameData.Category.Study:
+                sportCategoryButton.GetComponent<Image>().color = inactiveColor;
+                workCategoryButton.GetComponent<Image>().color = inactiveColor;
+                studyCategoryButton.GetComponent<Image>().color = activeColor;
+                break;
+        }
+    }
+
     private void WritingToData()
     {
-        if (!IsEmtyString() && !IsPriorityNull())
+        if (!IsEmptyString() && !IsPriorityNull() && !IsCategoryNull())
         {
             nameOfTask = inputNameOfTask.text;
             descriptionOfTheTask = inputDescriptionOfTheTask.text;
@@ -190,8 +255,11 @@ public class NewTaskPanel : MonoBehaviour
                     TaskData.Instance.SetStartDate(startDate);
                     TaskData.Instance.SetEndDate(endDate);
                     TaskData.Instance.SetPriority(priority);
+                    TaskData.Instance.SetCategory(category);
                     TaskData.Instance.SetTaskCompleted(false);
 
+                    ResetInput();
+                    
                     mainPanel.SetActive(true);
                     this.gameObject.SetActive(false);
                 }
@@ -200,7 +268,7 @@ public class NewTaskPanel : MonoBehaviour
         }
     }
 
-    private bool IsEmtyString()
+    private bool IsEmptyString()
     {
         for (int i = 0; i < allInputFields.Length; i++)
         {
@@ -249,5 +317,54 @@ public class NewTaskPanel : MonoBehaviour
         }
 
         return false;
+    }
+
+    private bool IsCategoryNull()
+    {
+        if (category == GameData.Category.Null)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private void ResetInput()
+    {
+        nameOfTask = string.Empty;
+        inputNameOfTask.text = nameOfTask;
+        descriptionOfTheTask = string.Empty;
+        inputDescriptionOfTheTask.text = descriptionOfTheTask;
+
+        startDay = 0;
+        inputStartDay.text = String.Empty;
+        startMonth = 0;
+        inputStartMonth.text = String.Empty;
+        startYear = 0;
+        inputStartYear.text = String.Empty;
+        startHour = 0;
+        inputStartHour.text = String.Empty;
+        startMinute = 0;
+        inputStartMinute.text = String.Empty;
+
+        endDay = 0;
+        inputEndDay.text = String.Empty;
+        endMonth = 0;
+        inputEndMonth.text = String.Empty;
+        endYear = 0;
+        inputEndYear.text = String.Empty;
+        endHour = 0;
+        inputEndHour.text = String.Empty;
+        endMinute = 0;
+        inputEndMinute.text = String.Empty;
+
+        startDateString = string.Empty;
+        endDateString = string.Empty;
+        
+        priority = GameData.Priority.Null;
+        category = GameData.Category.Null;
+        
+        SetCategoryButtonsColor();
+        SetPriorityButtonsColor();
     }
 }
