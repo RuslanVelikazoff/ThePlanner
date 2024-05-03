@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -31,6 +32,7 @@ public class CompletedTasks : MonoBehaviour
         }
 
         float procent = taskCompleted * 100 / allTasks;
+        var newProcent = Math.Round(procent, 2);
 
         if (indexTasks.Count == 0)
         {
@@ -40,7 +42,7 @@ public class CompletedTasks : MonoBehaviour
         }
         else
         {
-            procentText.text = procent + "%";
+            procentText.text = newProcent + "%";
             fillImage.fillAmount = procent / 100f;
         }
     }

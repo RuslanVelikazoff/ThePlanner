@@ -31,6 +31,8 @@ public class TaskData : MonoBehaviour
     {
         Load();
         SetStringToDate();
+        SetStartDateInStart();
+        Save();
         mainPanel.SetActive(true);
     }
 
@@ -66,16 +68,12 @@ public class TaskData : MonoBehaviour
         _category = data.category;
         _taskCompleted = data.taskCompleted;
         _favourite = data.favourite;
-
-        Debug.Log("Tasks Data Load");
     }
 
     private void Save()
     {
         SaveManager.Save(SaveKey, GetSaveSnapshot());
         PlayerPrefs.Save();
-        
-        Debug.Log("Tasks Data Save");
     }
 
     private GameData GetSaveSnapshot()
@@ -112,6 +110,17 @@ public class TaskData : MonoBehaviour
             if (DateTime.TryParse(_endDateString[i], out DateTime result))
             {
                 _endDate.Add(result);
+            }
+        }
+    }
+
+    private void SetStartDateInStart()
+    {
+        for (int i = 0; i < _startDate.Count; i++)
+        {
+            if (DateTime.Now <= _endDate[i] && DateTime.Now >= _startDate[i])
+            {
+                _startDate[i] = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             }
         }
     }
