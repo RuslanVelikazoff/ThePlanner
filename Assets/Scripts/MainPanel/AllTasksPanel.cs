@@ -11,6 +11,8 @@ public class AllTasksPanel : MonoBehaviour
     [SerializeField] 
     private Button dateButton;
     [SerializeField] 
+    private Button statisticsButton;
+    [SerializeField] 
     private Button backButton;
 
     [SerializeField] 
@@ -19,6 +21,8 @@ public class AllTasksPanel : MonoBehaviour
     private GameObject categoryPanel;
     [SerializeField]
     private GameObject priorityPanel;
+    [SerializeField] 
+    private GameObject statisticsPanel;
     [SerializeField] 
     private GameObject datePanel;
 
@@ -61,7 +65,18 @@ public class AllTasksPanel : MonoBehaviour
                 BackButtonAction(this.gameObject, datePanel);
             });
         }
-        
+
+        if (statisticsButton != null)
+        {
+            statisticsButton.onClick.RemoveAllListeners();
+            statisticsButton.onClick.AddListener(() =>
+            {
+                statisticsPanel.SetActive(true);
+                this.gameObject.SetActive(false);
+                BackButtonAction(this.gameObject, statisticsPanel);
+            });
+        }
+
         BackButtonAction(mainPanel, this.gameObject);
     }
 

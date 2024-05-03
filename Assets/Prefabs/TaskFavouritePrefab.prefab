@@ -711,3 +711,5 @@ MonoBehaviour:
   favouriteButton: {fileID: 2189702750323527628}
   favouriteSprite: {fileID: 21300000, guid: 770f0108bfb115d4287943ec3a10b494, type: 3}
   unfavouriteSprite: {fileID: 21300000, guid: c5b8980397db56147a44048c1b37bcb6, type: 3}
+  completedSprite: {fileID: 21300000, guid: c54842d18e659ee4dbd1cff85771a70d, type: 3}
+  uncompletedSprite: {fileID: 21300000, guid: 0c3461ab57baabb4289a9f05833e9afb, type: 3}

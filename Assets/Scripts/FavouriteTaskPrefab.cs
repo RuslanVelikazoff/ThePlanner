@@ -22,13 +22,31 @@ public class FavouriteTaskPrefab : MonoBehaviour
     [SerializeField] 
     private Sprite unfavouriteSprite;
 
+    [SerializeField]
+    private Sprite completedSprite;
+    [SerializeField] 
+    private Sprite uncompletedSprite;
+
     public void SpawnTaskPrefab(int index)
     {
         taskIndex = index;
         
         SetTaskText(taskIndex);
+        SetCompletedSprite(taskIndex);
         SetFavouriteButtonSprite(taskIndex);
         ButtonClickAction(taskIndex);
+    }
+
+    private void SetCompletedSprite(int index)
+    {
+        if (TaskData.Instance.GetTaskCompleted(index))
+        {
+            completeButton.GetComponent<Image>().sprite = completedSprite;
+        }
+        else
+        {
+            completeButton.GetComponent<Image>().sprite = uncompletedSprite;
+        }
     }
 
     private void SetTaskText(int index)
@@ -70,7 +88,7 @@ public class FavouriteTaskPrefab : MonoBehaviour
             completeButton.onClick.AddListener(() =>
             {
                 TaskData.Instance.TaskCompleted(index);
-                Destroy(this.gameObject);
+                SetCompletedSprite(index);
             });
         }
 

@@ -22,13 +22,31 @@ public class TaskPrefab : MonoBehaviour
     [SerializeField] 
     private Color highPriorityColor;
 
+    [SerializeField] 
+    private Sprite completedSprite;
+    [SerializeField]
+    private Sprite uncompletedSprite;
+
     public void SpawnTaskPrefab(int index)
     {
         taskIndex = index;
         
+        SetCompletedSprite(taskIndex);
         SetTaskText(taskIndex);
         SetOutlineColor(taskIndex);
         ButtonClickAction(taskIndex);
+    }
+
+    private void SetCompletedSprite(int index)
+    {
+        if (TaskData.Instance.GetTaskCompleted(index))
+        {
+            completeButton.GetComponent<Image>().sprite = completedSprite;
+        }
+        else
+        {
+            completeButton.GetComponent<Image>().sprite = uncompletedSprite;
+        }
     }
 
     private void SetTaskText(int index)
@@ -60,7 +78,7 @@ public class TaskPrefab : MonoBehaviour
             completeButton.onClick.AddListener(() =>
             {
                 TaskData.Instance.TaskCompleted(index);
-                Destroy(this.gameObject);
+                SetCompletedSprite(index);
             });
         }
 

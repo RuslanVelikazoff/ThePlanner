@@ -20,6 +20,7 @@ public class MainPanel : MonoBehaviour
     private void OnEnable()
     {
         ButtonClickAction();
+        backButton.gameObject.SetActive(false);
     }
 
     private void ButtonClickAction()
