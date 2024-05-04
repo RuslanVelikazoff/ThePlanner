@@ -30,7 +30,6 @@ public class PriorityScrollView : MonoBehaviour
 
     public void ResetTasks()
     {
-        Debug.Log(tasks.Count);
         if (tasks.Count != 0)
         {
             for (int i = 0; i < tasks.Count; i++)

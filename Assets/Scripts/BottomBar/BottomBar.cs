@@ -13,6 +13,8 @@ public class BottomBar : MonoBehaviour
 
     [SerializeField]
     private GameObject[] panels;
+    [SerializeField] 
+    private GameObject mainPanel;
     
     private int homeIndex = 0;
     private int favoriteIndex = 1;
@@ -35,6 +37,7 @@ public class BottomBar : MonoBehaviour
             buttons[homeIndex].onClick.AddListener(() =>
             {
                 OpenPanel(homeIndex);
+                mainPanel.SetActive(true);
             });
         }
 

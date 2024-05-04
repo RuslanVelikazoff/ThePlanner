@@ -16,6 +16,7 @@ public class TaskData : MonoBehaviour
     private List<GameData.Category> _category;
     private List<bool> _taskCompleted;
     private List<bool> _favourite;
+    private List<bool> _notification;
     
     private const string SaveKey = "MainSaveTasks";
 
@@ -68,6 +69,7 @@ public class TaskData : MonoBehaviour
         _category = data.category;
         _taskCompleted = data.taskCompleted;
         _favourite = data.favourite;
+        _notification = data.notification;
     }
 
     private void Save()
@@ -89,7 +91,8 @@ public class TaskData : MonoBehaviour
             priority = _priority,
             category = _category,
             taskCompleted = _taskCompleted,
-            favourite = _favourite
+            favourite = _favourite,
+            notification = _notification
         };
 
         return data;
@@ -140,6 +143,11 @@ public class TaskData : MonoBehaviour
     {
         _descriptionOfTheTask.Add(description);
         Save();
+    }
+
+    public string GetDescriptionOfTheTask(int index)
+    {
+        return _descriptionOfTheTask[index];
     }
 
     public void SetStartDate(DateTime date)
@@ -245,7 +253,38 @@ public class TaskData : MonoBehaviour
     {
         return _favourite[index];
     }
+
+    public void SetNotification(bool notification)
+    {
+        _notification.Add(notification);
+    }
+
+    public void TaskNotification(int index, bool notification)
+    {
+        _notification[index] = notification;
+        Save();
+    }
+
+    public bool GetTaskNotification(int index)
+    {
+        return _notification[index];
+    }
     
+    public List<int> GetNotificationTasksList()
+    {
+        List<int> listIndex = new List<int>();
+        
+        for (int i = 0; i < _notification.Count; i++)
+        {
+            if (_notification[i] == true)
+            {
+                listIndex.Add(i);
+            }
+        }
+
+        return listIndex;
+    }
+
     public List<int> GetFavoriteTasksList()
     {
         List<int> listIndex = new List<int>();
@@ -319,5 +358,6 @@ public class TaskData : MonoBehaviour
         _category.RemoveAt(index);
         _taskCompleted.RemoveAt(index);
         _favourite.RemoveAt(index);
+        _notification.RemoveAt(index);
     }
 }

@@ -37,6 +37,10 @@ public class NewTaskPanel : MonoBehaviour
 
     [SerializeField] 
     private Button addTaskButton;
+    [SerializeField] 
+    private Button newNotificationButton;
+    [SerializeField] 
+    private Button backButton;
 
     [SerializeField] 
     private Button highPriorityButton;
@@ -59,6 +63,8 @@ public class NewTaskPanel : MonoBehaviour
 
     [SerializeField] 
     private GameObject mainPanel;
+    [SerializeField]
+    private GameObject newNotificationPanel;
 
     private string nameOfTask;
     private string descriptionOfTheTask;
@@ -104,6 +110,27 @@ public class NewTaskPanel : MonoBehaviour
             addTaskButton.onClick.AddListener(() =>
             {
                 WritingToData();
+            });
+        }
+
+        if (newNotificationButton != null)
+        {
+            newNotificationButton.onClick.RemoveAllListeners();
+            newNotificationButton.onClick.AddListener(() =>
+            {
+                newNotificationPanel.SetActive(true);
+                this.gameObject.SetActive(false);
+
+                if (backButton != null)
+                {
+                    backButton.onClick.RemoveAllListeners();
+                    backButton.onClick.AddListener(() =>
+                    {
+                        newNotificationPanel.SetActive(false);
+                        mainPanel.SetActive(true);
+                        backButton.gameObject.SetActive(false);
+                    });
+                }
             });
         }
 
@@ -258,6 +285,7 @@ public class NewTaskPanel : MonoBehaviour
                     TaskData.Instance.SetCategory(category);
                     TaskData.Instance.SetTaskCompleted(false);
                     TaskData.Instance.SetFavourite(false);
+                    TaskData.Instance.SetNotification(false);
 
                     ResetInput();
                     
