@@ -19,7 +19,10 @@ public class NotificationController : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        CreateNotifications();
+        if (SettingsData.Instance.GetPushNotification())
+        {
+            CreateNotifications();
+        }
     }
 
     private void CreateNotifications()
