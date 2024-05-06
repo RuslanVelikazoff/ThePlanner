@@ -270,6 +270,21 @@ public class TaskData : MonoBehaviour
         return _notification[index];
     }
     
+    public List<int> GetCompletedTasksList()
+    {
+        List<int> listIndex = new List<int>();
+        
+        for (int i = 0; i < _taskCompleted.Count; i++)
+        {
+            if (_taskCompleted[i] == true)
+            {
+                listIndex.Add(i);
+            }
+        }
+
+        return listIndex;
+    }
+    
     public List<int> GetNotificationTasksList()
     {
         List<int> listIndex = new List<int>();

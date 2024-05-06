@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,8 +38,12 @@ public class ViewingProfilePanel : MonoBehaviour
         lastNameText.text = ProfileData.Instance.GetLastName();
         emailAddressText.text = ProfileData.Instance.GetEmailAddress();
         ageText.text = ProfileData.Instance.GetAge().ToString();
-        
-        //TODO: add goals stats
+
+        List<int> allTasks = TaskData.Instance.GetAllTasksList();
+        activeGoalsText.text = allTasks.Count.ToString();
+
+        List<int> completedTasks = TaskData.Instance.GetCompletedTasksList();
+        achievedGoalsText.text = completedTasks.Count.ToString();
     }
 
     private void SetGenderImages()
