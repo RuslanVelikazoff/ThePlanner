@@ -93,7 +93,7 @@ public class PolicyLoad : MonoBehaviour
     {
         string policyCheck = PlayerPrefs.GetString("PolicyCheck", "");
 
-        if (string.IsNullOrEmpty(policyCheck))
+        if (policyCheck == "")
         {
             StartCoroutine(CheckConnectionAndProceed());
         }
