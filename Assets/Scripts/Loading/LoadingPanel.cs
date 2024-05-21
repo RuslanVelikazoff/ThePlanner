@@ -34,7 +34,7 @@ public class LoadingPanel : MonoBehaviour
 
     private void RotateScreen()
     {
-        Screen.orientation = ScreenOrientation.LandscapeRight;
+        Screen.orientation = ScreenOrientation.Portrait;
     }
 
     private void LoadMainMenuScene()

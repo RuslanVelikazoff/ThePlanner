@@ -1708,6 +1708,10 @@ PrefabInstance:
       propertyPath: useEmbeddedToolbar
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114939446366399424, guid: 7e3f16a6f6303419cbd9837f6c746de4, type: 3}
+      propertyPath: referenceRectTransform
+      value: 
+      objectReference: {fileID: 1411928871}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e3f16a6f6303419cbd9837f6c746de4, type: 3}
 --- !u!114 &1552030605 stripped
